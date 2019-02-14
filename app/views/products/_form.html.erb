@@ -1,0 +1,39 @@
+
+ <% if @product.errors.any? %>
+  <ul>
+    <% @product.errors.full_messages.each do |error| %>
+    <li> <%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_for @product do |f|  %>
+<p>
+  <%= f.label :image %>
+  <%= f.file_field :image, required:true ,  multiple: true, name: "product[image]"%>
+</p>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title, required:true %>
+  </p>
+  <p>
+    <%= f.label :detail %>
+    <%= f.text_area :detail %>
+  </p>
+  <p>
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </p>
+  <p>
+    <%= f.label :type %>
+    <%= f.collection_select :type_id, Type.all, :id, :title, prompt: '-- select type --' %>
+  </p>
+
+  <p>
+    <%= f.label :user %>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+  </p>
+
+    <p>
+    <%= f.submit 'Save Product'%>
+  </p>
+<% end %>

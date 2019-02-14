@@ -1,0 +1,19 @@
+<div class="container form-signin">
+
+      <%= form_for :form, url: signin_path do |f| %>
+        <h2 class="form-signin-heading">Please sign in</h2>
+
+        <%= f.label :username, class: 'sr-only' %>
+        <%= f.text_field :username, class: 'form-control', placeholder: 'UserName' %>
+
+        <%= f.label :password, class: 'sr-only' %>
+        <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+
+        <% if !flash[:notice].blank? %>
+          <div class="alert alert-danger"><%= flash[:notice] %> </div>
+        <% end %>
+        
+        <%= f.submit 'Sign in', class: 'btn btn-lg btn-primary btn-block' %>
+      <% end %>
+
+    </div> <!-- /container -->

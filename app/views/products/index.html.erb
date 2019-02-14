@@ -1,0 +1,48 @@
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+Welcome <%= session[:username] %> | <%= link_to 'Sign out', signout_path(url: request.url) %>
+<% no=0 %>
+<h4> | <%= link_to 'New Product',new_product_path, class:'btn btn-primary' %> |
+  <%= link_to "Export CSV", products_path(format: "csv"), class:'btn btn-primary' %> |
+  <%= link_to "Add Product Type", new_type_path, class:'btn btn-primary' %> |
+  <%= link_to "Export Json", exportjson_product_path, method: :POST, class:'btn btn-primary' %> |
+</h4>
+<table class ="table table-hover">
+<tr>
+  <td colspan="3">
+    <%= form_for :form, url: search_product_path do |f| %>
+    <%= f.text_field :search, placeholder:'search', value:@search, class: 'form-control' %>
+
+  </td>
+
+  <td>
+      <%= f.submit "Search Product", url: search_product_path, method: :POST, class:'btn btn-info' %>
+  </td>
+      <% end %>
+</tr>
+  <tr>
+    <th>No</th>
+
+    <th>Image</th>
+    <th>Title</th>
+    <th>Detail</th>
+    <th>Price</th>
+    <th>Type</th>
+    <th>User</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <% @product.each do |product| %>
+  <tr>
+    <td><%= no+=1 %></td>
+
+    <td><%= image_tag(product.image.url, size: "50x50") %></td>
+    <td><%= product.title %></td>
+    <td><%= product.detail %></td>
+    <td><%= product.price %></td>
+    <td><%= product.type_title %></td>
+    <td><%= product.username %></td>
+    <td><%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_product_path(product.id) %></td>
+    <td><%= link_to '<i class="fa fa-trash-o"></i>'.html_safe , product_path(product.id), method: :DELETE, data:{ confirm:'Are you sure ?'} %></td>
+  </tr>
+  <% end %>
+</table>

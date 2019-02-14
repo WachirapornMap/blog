@@ -1,0 +1,20 @@
+<% if @type.errors.any? %>
+  <ul>
+    <% @type.errors.full_messages.each do |error| %>
+    <li> <%= error %> </li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_for @type do |f|  %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title, required:true %>
+  </p>
+  <p>
+    <%= f.label :detail %>
+    <%= f.text_area :detail %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
